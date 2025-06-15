@@ -1,9 +1,8 @@
 const GymMember = require("../model/GymMember");
 const Personal = require("../model/Personal");
-const bcrypt = require('bcryptjs');
 
 const RegisterForGymMember = async (req, res) => {
-    const {name, email, password, objective, hasLimitingConditions,         limitingConditions} = req.body;
+    const {name, email, password, objective, hasLimitingConditions, limitingConditions} = req.body;
 
     try {
         const existingUser = await GymMember.findOne({ email });
@@ -20,9 +19,8 @@ const RegisterForGymMember = async (req, res) => {
             limitingConditions
         });
 
-        await newGymMember.save();
-
-        const gymMemberObj = new GymMember.toObject();
+        const savedMember = await newGymMember.save();
+        const gymMemberObj = savedMember.toObject();
         delete gymMemberObj.password;
 
         return res.status(201).json({ message: 'Usuário executor criado com sucesso!', user: gymMemberObj });
@@ -33,7 +31,6 @@ const RegisterForGymMember = async (req, res) => {
         }
         return res.status(500).json({ error: 'Erro interno do servidor ao criar usuário executor.' });
     }
-
 };
 
 const RegisterForPersonal = async (req, res) => {
@@ -52,9 +49,8 @@ const RegisterForPersonal = async (req, res) => {
             CREF
         });
 
-        await newPersonal.save();
-
-        const personalObj = new Personal.toObject();
+        const savedPersonal = await newPersonal.save();
+        const personalObj = savedPersonal.toObject();
         delete personalObj.password;
 
         return res.status(201).json({ message: 'Usuário executor criado com sucesso!', user: personalObj });
@@ -65,11 +61,9 @@ const RegisterForPersonal = async (req, res) => {
         }
         return res.status(500).json({ error: 'Erro interno do servidor ao criar usuário executor.' });
     }
-    
-}
-
+};
 
 module.exports = {
     RegisterForGymMember,
     RegisterForPersonal
-}
+};
