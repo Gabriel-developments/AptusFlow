@@ -7,7 +7,7 @@ const GymMemberSchema = new mongoose.Schema(
         password: {type: String, require: true},
         objective: {type: String, require: true},
         hasLimitingConditions: {type: Boolean, require: true},
-        limitingConditions: {type: String, require: true},
+        limitingConditions: {type: String, require: false},
     }
 );
 
