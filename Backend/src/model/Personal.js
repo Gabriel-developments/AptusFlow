@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-const PersonalSchema = new mongoose.Schema(
-    {
-        name: {type: String, require: true},
-        email: {type: String, require: true},
-        password: {type: String, require: true},
-        CREF: {type: String, require: true}
+const PersonalSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    CREF: { type: String, required: true },
+    calendarId: { type: String },
+    availability: {
+        workDays: { type: [Number], default: [1, 2, 3, 4, 5] },
+        startHour: { type: Number, default: 8 }, 
+        endHour: { type: Number, default: 20 },
+        appointmentDuration: { type: Number, default: 60 } 
     }
-)
+});
 
 PersonalSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
@@ -21,7 +27,6 @@ PersonalSchema.pre('save', async function(next) {
         next(err);
     }
 });
-
 
 PersonalSchema.methods.comparePassword = async function(candidatePassword) {
     try {
