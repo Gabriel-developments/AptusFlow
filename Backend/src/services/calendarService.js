@@ -31,8 +31,7 @@ class CalendarService {
         const { tokens } = await this.auth.getToken(code);
         this.auth.setCredentials(tokens);
         
-      
-        const Personal = require('../models/Personal');
+        const Personal = require('../model/Personal');
         const personal = await Personal.findByIdAndUpdate(
             personalId,
             { googleToken: JSON.stringify(tokens) },
@@ -56,7 +55,7 @@ class CalendarService {
                 }
             });
             
-            const Personal = require('../models/Personal');
+            const Personal = require('../model/Personal');
             await Personal.findByIdAndUpdate(
                 personal._id,
                 { calendarId: res.data.id },
@@ -71,8 +70,7 @@ class CalendarService {
     }
 
     async setDefaultAvailability(personal) {
-        
     }
 }
 
-module.exports = new CalendarService();
+module.exports = CalendarService;

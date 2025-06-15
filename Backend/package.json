@@ -23,6 +23,7 @@
     "mongoose": "^8.15.2"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "jest": "^30.0.0",
     "supertest": "^7.1.1"
   }
