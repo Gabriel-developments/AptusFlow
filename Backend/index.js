@@ -6,8 +6,8 @@ const app = express( );
 
 connectInDB();
 
-app.use('/api/login', loginRoutes)
-app.use('/api/register', registerRoutes)
+app.use('/api/login', loginRoutes);
+app.use('/api/register', registerRoutes);
 
 
 app.listen(3000, ( )=>{
