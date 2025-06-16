@@ -53,7 +53,8 @@
 
 ## Layouts do projeto
 
-![Tela de Login](https://drive.google.com/uc?export=download&id=1I7TZXmVLROTV_tw9PqxynSae-OCEGBaF)
+### TELA DE LOGIN
+![Tela de Login](https://drive.google.com/uc?export=view&id=1I7TZXmVLROTV_tw9PqxynSae-OCEGBaF)
 
 
 
