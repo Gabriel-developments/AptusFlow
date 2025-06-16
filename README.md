@@ -57,6 +57,9 @@
 ![Tela de Login](https://drive.google.com/uc?export=view&id=1I7TZXmVLROTV_tw9PqxynSae-OCEGBaF)
 
 
+#### Optei por uma paleta de cores e estrutura de layout que demonstra-sem não só profissionalismo, mas também modernidade. Trazendo assim uma melhor experiência ao usuário
+
+
 
 
 
