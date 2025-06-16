@@ -1,0 +1,380 @@
+:root {
+  --primary-purple: #6a0dad;
+  --purple-light: #9c27b0;
+  --purple-dark: #4a0072;
+  --purple-gradient: linear-gradient(135deg, var(--primary-purple), var(--purple-light));
+  --white: #ffffff;
+  --light-gray: #f8f9fa;
+  --medium-gray: #e9ecef;
+  --dark-gray: #495057;
+  --text-dark: #212529;
+  --shadow-light: 0 4px 20px rgba(106, 13, 173, 0.1);
+  --shadow-medium: 0 8px 30px rgba(106, 13, 173, 0.15);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.aptus-signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--light-gray);
+  padding: 2rem;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.aptus-signup-card {
+  width: 100%;
+  max-width: 520px;
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-medium);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.aptus-signup-header {
+  padding: 2.5rem 2.5rem 1.5rem;
+  text-align: center;
+  background: var(--purple-gradient);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.aptus-signup-header::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.aptus-signup-header::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.aptus-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.aptus-logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background-color: var(--white);
+  color: var(--primary-purple);
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  margin-right: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.aptus-logo-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.aptus-signup-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.aptus-signup-subtitle {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.aptus-user-type-selector {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 2.5rem;
+}
+
+.aptus-type-option {
+  flex: 1;
+  padding: 1.25rem 1rem;
+  background-color: var(--white);
+  border: 1px solid var(--medium-gray);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.aptus-type-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--purple-light);
+}
+
+.aptus-type-active {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  color: var(--white);
+  box-shadow: 0 4px 16px rgba(106, 13, 173, 0.3);
+}
+
+.aptus-type-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.aptus-type-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.aptus-signup-form {
+  padding: 0 2.5rem 2.5rem;
+}
+
+.aptus-form-section {
+  margin-bottom: 1.75rem;
+}
+
+.aptus-section-title {
+  font-size: 1rem;
+  color: var(--primary-purple);
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.aptus-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60%;
+  width: 3px;
+  background: var(--purple-gradient);
+  border-radius: 3px;
+}
+
+.aptus-form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.aptus-form-group {
+  position: relative;
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+
+.aptus-input,
+.aptus-select,
+.aptus-textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  background-color: var(--light-gray);
+  color: var(--text-dark);
+}
+
+.aptus-input:focus,
+.aptus-select:focus,
+.aptus-textarea:focus {
+  outline: none;
+  background-color: var(--white);
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.15);
+}
+
+.aptus-input-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--purple-gradient);
+  transition: var(--transition);
+}
+
+.aptus-input:focus + .aptus-input-border,
+.aptus-select:focus + .aptus-input-border,
+.aptus-textarea:focus + .aptus-input-border {
+  width: 100%;
+}
+
+.aptus-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.aptus-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.aptus-medical-conditions {
+  margin: 1.5rem 0;
+}
+
+.aptus-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--dark-gray);
+  position: relative;
+}
+
+.aptus-checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.aptus-checkbox-custom {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--medium-gray);
+  border-radius: 4px;
+  margin-right: 0.75rem;
+  position: relative;
+  transition: var(--transition);
+}
+
+.aptus-checkbox:checked + .aptus-checkbox-custom {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+}
+
+.aptus-checkbox:checked + .aptus-checkbox-custom::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.aptus-signup-button {
+  width: 100%;
+  padding: 1rem;
+  background: var(--purple-gradient);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin: 2rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(106, 13, 173, 0.3);
+}
+
+.aptus-signup-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(106, 13, 173, 0.4);
+}
+
+.aptus-button-icon {
+  margin-left: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.aptus-signup-button:hover .aptus-button-icon {
+  transform: translateX(3px);
+}
+
+.aptus-login-link {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--dark-gray);
+}
+
+.aptus-link {
+  color: var(--primary-purple);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+.aptus-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary-purple);
+  transition: var(--transition);
+}
+
+.aptus-link:hover::after {
+  width: 100%;
+}
+
+
+@media (max-width: 768px) {
+  .aptus-signup-container {
+    padding: 1rem;
+  }
+  
+  .aptus-signup-header,
+  .aptus-signup-form,
+  .aptus-user-type-selector {
+    padding: 1.5rem;
+  }
+  
+  .aptus-form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .aptus-signup-card {
+    border-radius: 0;
+  }
+  
+  .aptus-user-type-selector {
+    flex-direction: column;
+  }
+  
+  .aptus-logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .aptus-signup-title {
+    font-size: 1.3rem;
+  }
+}
