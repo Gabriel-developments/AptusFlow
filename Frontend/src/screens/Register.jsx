@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Register.css';
+import axios from 'axios';
 
 const Register = () => {
   const [userType, setUserType] = useState(null);
@@ -25,9 +26,31 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Dados do cadastro:', { userType, ...formData });
+    
+    if (userType == 'personal') {
+        await axios.post('http://localhost:3000/api/register/registerForPersonal', formData, {
+            headers: {"Content-Type": "application/json"}
+        })
+        .then((response)=>{
+           return console.log("User created");
+        })
+        .catch((err)=>{
+            return console.log(err);
+        });
+    } else {
+        await axios.post('http://localhost:3000/api/register/registerForGymMember',  formData, {
+            headers: {"Content-Type": "application/json"}
+        })
+            .then((response)=>{
+            return console.log("User created");
+            })
+            .catch((err)=>{
+                return console.log(err);
+        });
+    }
   };
 
   return (
@@ -63,7 +86,7 @@ const Register = () => {
 
         {userType && (
           <form onSubmit={handleSubmit} className="aptus-signup-form">
-            {/* Seção de Informações Básicas */}
+         
             <div className="aptus-form-section">
               <h3 className="aptus-section-title">Informações Básicas</h3>
               <div className="aptus-form-group">
@@ -120,7 +143,7 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Seção Específica por Tipo */}
+           
             <div className="aptus-form-section">
               <h3 className="aptus-section-title">
                 {userType === 'personal' ? 'Informações Profissionais' : 'Objetivos'}
