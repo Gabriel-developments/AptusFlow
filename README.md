@@ -27,3 +27,28 @@
 #### Tire dúvidas, envie feedbacks e motive-os a qualquer momento.
 #### Centralize toda a comunicação em um só lugar.
 
+
+---
+
+## Tecnologias escolhidas para o desenvolvimento:
+
+### Frontend:
+
+#### React js + Javascript + axios para integrações com backend + estilização com CSS puro
+
+### Backend:
+
+#### Node js 
+#### Express
+#### MongoDb para armazenamento dos dados 
+#### Api do Mercado Pago para ofertar meios de pagamento e assinaturas
+
+
+### Mobile (Em breve)
+
+#### React native + expo
+
+
+
+
+
