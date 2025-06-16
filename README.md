@@ -76,6 +76,10 @@
 
 ---
 
+### Visão formulário para personal
+![Formulário personal](https://github.com/user-attachments/assets/7aee512d-8d9c-42af-b04a-bb6fa3d38fe2)
+
+#### Neste formulário são requisitadas informações básicas do personal e legais (visto que não será tolerado exercicio ilegal da profissão), as informações requisitadas são: Nome, Email, Senha, Confirmação de senha, Cidade, Estado e CREF
 
 
 
