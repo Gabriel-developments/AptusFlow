@@ -62,7 +62,7 @@
 ---
 
 ### Primeira visão do cadastro
-![Primeira visão do cadastro](https://drive.google.com/uc?export=view&id=1I7TZXmVLROTV_tw9PqxynSae-OCEGBaF)
+![Primeira visão do usuário sobre a tela de cadastro](https://drive.google.com/uc?export=view&id=1huMMFuZdZYXgj9nBDqcPt8fDDk6UjOS3)
 
 #### Este é o primeiro contato com usuário ao pressionar em criar nova conta, onde aparece o questionamento para avaliar se é um personal trainer ou um aluno
 
