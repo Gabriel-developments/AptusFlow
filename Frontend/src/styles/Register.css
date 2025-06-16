@@ -13,6 +13,47 @@
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.aptus-professionals-list {
+  margin-top: 1.5rem;
+}
+
+.aptus-professional-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition);
+}
+
+.aptus-professional-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.aptus-professional-info h3 {
+  color: var(--primary-purple);
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.aptus-professional-info p {
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.aptus-professional-info p strong {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.aptus-professional-card .aptus-signup-button {
+  margin: 1rem 0 0;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+}
+
 .aptus-signup-container {
   display: flex;
   justify-content: center;
