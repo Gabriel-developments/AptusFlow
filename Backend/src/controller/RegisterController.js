@@ -35,7 +35,7 @@ const RegisterForGymMember = async (req, res) => {
 };
 
 const RegisterForPersonal = async (req, res) => {
-    const {name, email, password, CREF} = req.body;
+    const {name, email, password, CREF, UF, town} = req.body;
 
     try {
         const existingUser = await Personal.findOne({ email });
@@ -47,7 +47,9 @@ const RegisterForPersonal = async (req, res) => {
             name,
             email,
             password,
-            CREF
+            CREF,
+            UF,
+            town
         });
 
         const savedPersonal = await newPersonal.save();

@@ -6,6 +6,8 @@ const PersonalSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     CREF: { type: String, required: true },
+    UF: {type: String, require: true},
+    town: {type: String, require: true},
     calendarId: { type: String },
     availability: {
         workDays: { type: [Number], default: [1, 2, 3, 4, 5] },
