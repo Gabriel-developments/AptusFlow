@@ -66,6 +66,16 @@
 
 #### Este é o primeiro contato com usuário ao pressionar em criar nova conta, onde aparece o questionamento para avaliar se é um personal trainer ou um aluno
 
+---
+
+
+### Visão formulário para cadastro de aluno
+![Formulário cadastro de aluno](https://drive.google.com/uc?export=view&id=1oLsbTQ7vL8su0tHq2r0LZSRDeJkYcqJh)
+
+#### Neste formulário são requisitadas as informaçõs básicas inicias do aluno, tais como: Nome, Email, Senha, Confirmação de senha, Objetivo e se possui alguma condição que limite o aluno em determinadas práticas fisicas.
+
+---
+
 
 
 
