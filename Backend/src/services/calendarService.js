@@ -71,6 +71,45 @@ class CalendarService {
 
     async setDefaultAvailability(personal) {
     }
+
+    async createEvent(personal, eventDetails) {
+    try {
+        const auth = await this.authorizePersonal(personal);
+        const calendar = google.calendar({ version: 'v3', auth });
+
+        if (!personal.calendarId) {
+            throw new Error("Calendar ID não encontrado para este usuário.");
+        }
+
+        const defaultEvent = {
+            summary: "Consulta/Agendamento",
+            description: "Agendamento via sistema",
+            start: {
+                dateTime: eventDetails.startTime, 
+                timeZone: 'America/Sao_Paulo',
+            },
+            end: {
+                dateTime: eventDetails.endTime,   
+                timeZone: 'America/Sao_Paulo',
+            },
+            attendees: eventDetails.attendees?.map(email => ({ email })) || [],
+            reminders: {
+                useDefault: true, 
+            },
+        };
+
+        
+        const response = await calendar.events.insert({
+            calendarId: personal.calendarId,
+            requestBody: defaultEvent,
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error("Erro ao criar evento:", error.message);
+        throw error;
+    }
+}
 }
 
 module.exports = CalendarService;

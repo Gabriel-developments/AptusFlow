@@ -1,9 +1,11 @@
 const { RegisterForGymMember, RegisterForPersonal } = require('../src/controller/RegisterController');
 const GymMember = require('../src/model/GymMember');
 const Personal = require('../src/model/Personal');
+const CalendarService = require('../src/services/calendarService');
 
 jest.mock('../src/model/GymMember');
 jest.mock('../src/model/Personal');
+jest.mock('../src/services/calendarService');
 
 describe('RegisterController', () => {
   let mockRequest, mockResponse;
@@ -65,7 +67,6 @@ describe('RegisterController', () => {
         }
       });
     });
-
   });
 
   describe('RegisterForPersonal', () => {
@@ -74,7 +75,9 @@ describe('RegisterController', () => {
         name: 'Trainer',
         email: 'trainer@example.com',
         password: 'password123',
-        CREF: '123456'
+        CREF: '123456',
+        UF: 'SP',
+        town: 'São Paulo'
       };
 
       const mockSavedPersonal = {
@@ -82,29 +85,46 @@ describe('RegisterController', () => {
         name: 'Trainer',
         email: 'trainer@example.com',
         CREF: '123456',
+        UF: 'SP',
+        town: 'São Paulo',
         toObject: jest.fn().mockReturnValue({
           _id: '456',
           name: 'Trainer',
           email: 'trainer@example.com',
-          CREF: '123456'
+          CREF: '123456',
+          UF: 'SP',
+          town: 'São Paulo'
         })
+      };
+
+      const mockAuthResult = {
+        authUrl: 'https://auth.url',
+        personalId: '456'
       };
 
       Personal.findOne.mockResolvedValue(null);
       Personal.prototype.save.mockResolvedValue(mockSavedPersonal);
+      CalendarService.mockImplementation(() => ({
+        authorizePersonal: jest.fn().mockResolvedValue(mockAuthResult),
+        createCalendarForPersonal: jest.fn()
+      }));
 
       await RegisterForPersonal(mockRequest, mockResponse);
 
       expect(Personal.findOne).toHaveBeenCalledWith({ email: 'trainer@example.com' });
       expect(mockResponse.status).toHaveBeenCalledWith(201);
       expect(mockResponse.json).toHaveBeenCalledWith({
-        message: 'Usuário executor criado com sucesso!',
+        message: 'Usuário executor criado com sucesso! Por favor, autorize o acesso ao calendário.',
         user: {
           _id: '456',
           name: 'Trainer',
           email: 'trainer@example.com',
-          CREF: '123456'
-        }
+          CREF: '123456',
+          UF: 'SP',
+          town: 'São Paulo'
+        },
+        authUrl: 'https://auth.url',
+        personalId: '456'
       });
     });
   });

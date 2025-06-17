@@ -194,4 +194,95 @@ describe('CalendarService', () => {
                 .rejects.toThrow(mockError);
         });
     });
+
+    describe('createEvent', () => {
+        const mockPersonal = {
+            _id: '123',
+            name: 'Test Personal',
+            email: 'test@example.com',
+            CREF: '123456',
+            googleToken: '{"access_token":"mock-token"}',
+            calendarId: 'calendar-id-123'
+        };
+
+        const mockEventDetails = {
+            startTime: '2025-06-20T09:00:00-03:00',
+            endTime: '2025-06-20T10:00:00-03:00',
+            attendees: ['client@example.com']
+        };
+
+        it('should create an event successfully', async () => {
+            const mockEventResponse = {
+                data: {
+                    id: 'event-id-123',
+                    summary: 'Consulta/Agendamento',
+                    start: { dateTime: mockEventDetails.startTime },
+                    end: { dateTime: mockEventDetails.endTime }
+                }
+            };
+
+            google.calendar.mockReturnValue({
+                events: {
+                    insert: jest.fn().mockResolvedValue(mockEventResponse)
+                }
+            });
+
+            const result = await calendarService.createEvent(mockPersonal, mockEventDetails);
+
+            expect(google.calendar).toHaveBeenCalledWith({
+                version: 'v3',
+                auth: mockAuth
+            });
+            expect(result).toEqual(mockEventResponse.data);
+        });
+
+        it('should throw error if calendarId is missing', async () => {
+            const personalWithoutCalendar = { ...mockPersonal, calendarId: null };
+
+            await expect(
+                calendarService.createEvent(personalWithoutCalendar, mockEventDetails)
+            ).rejects.toThrow('Calendar ID não encontrado para este usuário.');
+        });
+
+        it('should throw error if Google API fails', async () => {
+            const mockError = new Error('Google API Error');
+
+            google.calendar.mockReturnValue({
+                events: {
+                    insert: jest.fn().mockRejectedValue(mockError)
+                }
+            });
+
+            await expect(
+                calendarService.createEvent(mockPersonal, mockEventDetails)
+            ).rejects.toThrow(mockError);
+        });
+
+        it('should use default event summary if not provided', async () => {
+            const mockEventResponse = {
+                data: {
+                    id: 'event-id-123',
+                    summary: 'Consulta/Agendamento'
+                }
+            };
+
+            google.calendar.mockReturnValue({
+                events: {
+                    insert: jest.fn().mockResolvedValue(mockEventResponse)
+                }
+            });
+
+            const eventDetailsWithoutSummary = {
+                startTime: mockEventDetails.startTime,
+                endTime: mockEventDetails.endTime
+            };
+
+            const result = await calendarService.createEvent(
+                mockPersonal,
+                eventDetailsWithoutSummary
+            );
+
+            expect(result.summary).toBe('Consulta/Agendamento');
+        });
+    });
 });

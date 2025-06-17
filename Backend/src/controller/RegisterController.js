@@ -1,6 +1,6 @@
 const GymMember = require("../model/GymMember");
 const Personal = require("../model/Personal");
-const CalendarService = require('../services/calendarService'); 
+const CalendarService = require('../services/calendarService');
 
 const RegisterForGymMember = async (req, res) => {
     const {name, email, password, objective, hasLimitingConditions, limitingConditions} = req.body;
@@ -56,13 +56,11 @@ const RegisterForPersonal = async (req, res) => {
         const personalObj = savedPersonal.toObject();
         delete personalObj.password;
 
-        
         const calendarService = new CalendarService();
         const authResult = await calendarService.authorizePersonal(savedPersonal);
 
         if (authResult.authUrl) {
-
-            return res.status(200).json({
+            return res.status(201).json({
                 message: 'Usuário executor criado com sucesso! Por favor, autorize o acesso ao calendário.',
                 user: personalObj,
                 authUrl: authResult.authUrl,
