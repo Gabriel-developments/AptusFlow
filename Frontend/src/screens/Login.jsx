@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Login.css'
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +9,15 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    axios.post('http://localhost:3000/api/login', 
+      { email, password })
+      .then(response => {
+        console.log('Login successful:', response.data);
+      })
+      .catch(error => {
+        console.error('Login failed:', error);
+      });
 
     console.log('Login submitted:', { email, password, rememberMe });
   };
