@@ -10,6 +10,7 @@ const app = express( );
 
 connectInDB();
 app.use(cors());
+app.use(express.json());
 
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
