@@ -5,18 +5,22 @@ const registerRoutes = require('./src/routes/registerRoutes');
 const subscriptionsRoutes = require('./src/routes/paymentsRoutes/subscriptionsRoutes');
 const ReturnPersonals = require('./src/controller/ReturnPersonals');
 const appointmentsRoutes = require('./src/routes/appointmentRoutes');
+const authRoutes = require('./src/routes/authRoutes');
 const cors = require('cors');
 const app = express( );
 
 connectInDB();
 app.use(cors());
-app.use(express.json());
 
+app.use(express.json());
 app.use('/api/login', loginRoutes);
 app.use('/api/register', registerRoutes);
 app.use('/api/subscription', subscriptionsRoutes);
 app.get('/api/returnPersonals', ReturnPersonals);
 app.use('/api/appointments', appointmentsRoutes);
+app.use(authRoutes);
+
+
 
 module.exports = app;
 

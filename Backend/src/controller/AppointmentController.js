@@ -18,7 +18,11 @@ class AppointmentController {
             }
 
             if (!personal.calendarId) {
-                await calendarService.createCalendarForPersonal(personal);
+                try {
+                    await calendarService.createCalendarForPersonal(personal);
+                } catch (authError) {
+                    throw new Error(`Erro ao configurar calendário para o personal trainer: ${authError.message}. Certifique-se de que a autorização do Google Calendar foi concluída.`);
+                }
             }
 
             const startTime = new Date(`${appointmentData.date}T${appointmentData.time}:00`);
@@ -72,6 +76,11 @@ class AppointmentController {
             }
 
             const auth = await calendarService.authorizePersonal(personal);
+            
+            if (!(auth instanceof google.auth.OAuth2)) {
+                throw new Error('Autorização do Google Calendar pendente para o personal trainer.');
+            }
+
             const calendar = google.calendar({ version: 'v3', auth });
 
             const events = await calendar.events.list({
@@ -85,6 +94,10 @@ class AppointmentController {
             return events.data.items.length === 0;
         } catch (error) {
             console.error('Erro ao verificar disponibilidade:', error);
+            // Propagate the specific error if it's related to authorization
+            if (error.message.includes('autorização') || error.message.includes('Authorization')) {
+                throw error;
+            }
             return false;
         }
     }
@@ -109,6 +122,11 @@ class AppointmentController {
             endOfDay.setHours(personal.availability.endHour, 0, 0, 0);
 
             const auth = await calendarService.authorizePersonal(personal);
+            
+            if (!(auth instanceof google.auth.OAuth2)) {
+                throw new Error('Autorização do Google Calendar pendente para o personal trainer.');
+            }
+
             const calendar = google.calendar({ version: 'v3', auth });
 
             const events = await calendar.events.list({

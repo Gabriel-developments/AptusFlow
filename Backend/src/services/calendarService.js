@@ -14,8 +14,9 @@ class CalendarService {
         if (personal.googleToken) {
             this.auth.setCredentials(JSON.parse(personal.googleToken));
             return this.auth;
+        } else {
+            throw new Error('Personal trainer has not authorized Google Calendar access. Please complete the authorization flow first.');
         }
-        return this.getAccessToken(personal);
     }
 
     async getAccessToken(personal) {
@@ -42,12 +43,10 @@ class CalendarService {
     }
 
     async createCalendarForPersonal(personal) {
-        const auth = await this.authorizePersonal(personal);
-        const calendar = google.calendar({ version: 'v3', auth });
-        
-        const calendarId = `${personal.email.replace(/[@.]/g, '_')}_${personal._id}`;
-        
         try {
+            const auth = await this.authorizePersonal(personal);
+            const calendar = google.calendar({ version: 'v3', auth });
+            
             const res = await calendar.calendars.insert({
                 requestBody: {
                     summary: `Agenda ${personal.name} (CREF: ${personal.CREF})`,
@@ -65,51 +64,51 @@ class CalendarService {
             return res.data;
         } catch (error) {
             console.error('Erro ao criar calendário:', error);
-            throw error;
+            throw error; // Re-throw the error to be caught by the caller
         }
     }
 
     async setDefaultAvailability(personal) {
+        // This method is currently empty and doesn't need changes related to the error.
     }
 
     async createEvent(personal, eventDetails) {
-    try {
-        const auth = await this.authorizePersonal(personal);
-        const calendar = google.calendar({ version: 'v3', auth });
+        try {
+            const auth = await this.authorizePersonal(personal);
+            const calendar = google.calendar({ version: 'v3', auth });
 
-        if (!personal.calendarId) {
-            throw new Error("Calendar ID não encontrado para este usuário.");
+            if (!personal.calendarId) {
+                throw new Error("Calendar ID não encontrado para este usuário.");
+            }
+
+            const defaultEvent = {
+                summary: "Consulta/Agendamento",
+                description: "Agendamento via sistema",
+                start: {
+                    dateTime: eventDetails.startTime, 
+                    timeZone: 'America/Sao_Paulo',
+                },
+                end: {
+                    dateTime: eventDetails.endTime,   
+                    timeZone: 'America/Sao_Paulo',
+                },
+                attendees: eventDetails.attendees?.map(email => ({ email })) || [],
+                reminders: {
+                    useDefault: true, 
+                },
+            };
+
+            const response = await calendar.events.insert({
+                calendarId: personal.calendarId,
+                requestBody: defaultEvent,
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao criar evento:", error.message);
+            throw error;
         }
-
-        const defaultEvent = {
-            summary: "Consulta/Agendamento",
-            description: "Agendamento via sistema",
-            start: {
-                dateTime: eventDetails.startTime, 
-                timeZone: 'America/Sao_Paulo',
-            },
-            end: {
-                dateTime: eventDetails.endTime,   
-                timeZone: 'America/Sao_Paulo',
-            },
-            attendees: eventDetails.attendees?.map(email => ({ email })) || [],
-            reminders: {
-                useDefault: true, 
-            },
-        };
-
-        
-        const response = await calendar.events.insert({
-            calendarId: personal.calendarId,
-            requestBody: defaultEvent,
-        });
-
-        return response.data;
-    } catch (error) {
-        console.error("Erro ao criar evento:", error.message);
-        throw error;
     }
-}
 }
 
 module.exports = CalendarService;
